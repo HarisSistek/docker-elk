@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  apm-agent:
+    build:
+      context: extensions/apm-agent/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    ports:
+      - "11000:11000"
+    networks:
+      - elk
+    depends_on:
+      - apm-server
+
+  redis:
+    image: "redis:alpine"
+    networks:
+      - elk
